@@ -1,0 +1,61 @@
+﻿@model IEnumerable<FlyRoute>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>    Nereden</th>
+
+
+            <th>  Nereye</th>
+
+        </tr>
+      
+
+
+
+    </thead>
+    <tbody>
+       
+
+
+          
+                @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Start.Name
+
+                </td>
+
+                <td>
+                    @item.End.Name
+                    
+
+
+                </td>
+            </tr>
+                }
+          
+            
+                
+          
+
+
+
+     
+
+
+
+
+
+
+    </tbody>
+
+
+
+
+
+
+
+
+</table>

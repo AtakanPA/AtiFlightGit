@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AtiFlight</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+</head>
+<body>
+   <div class="navigation">
+
+       <ul>
+           <li class="list Active">
+               <b></b>
+               <b></b>
+               <a href="#">
+                    <span class="icon"><ion-icon name="home"></ion-icon></span>
+                   <span class="title">Home</span>
+               </a>
+
+
+           </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="#">
+                    <span class="icon"><ion-icon name="git-compare"></ion-icon></span>
+                    <span class="title">Rotalar</span>
+                </a>
+
+
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="#">
+                    <span class="icon"><ion-icon name="home"></ion-icon></span>
+                    <span class="title">Uçaklar</span>
+                </a>
+
+
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="#">
+                    <span class="icon"><ion-icon name="git-compare"></ion-icon></span>
+                    <span class="title">Uçuşlar</span>
+                </a>
+
+
+            </li>
+            <li class="list">
+                <b></b>
+                <b></b>
+                <a href="#">
+                    <span class="icon"><ion-icon name="git-compare"></ion-icon></span>
+                    <span class="title">Çıkış Yap</span>
+                </a>
+
+
+            </li>
+       </ul>
+
+       
+
+
+
+
+   </div>
+   <div class="toggle">
+        <ion-icon name="menu" class="open"></ion-icon>
+        <ion-icon name="close" class="close"></ion-icon>
+   </div>
+   @RenderBody();
+
+  
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿@model FlyRoute
+
+
+<form asp-action="AddRoute" method="post">
+    <label>Nereden</label>
+    <select asp-for="StartID" asp-items="ViewBag.illerStartList">
+    
+    </select>
+
+    <label>Nereye</label>
+    <select asp-for="EndID" asp-items="ViewBag.illerEndList">
+       
+        
+
+    </select>
+
+
+
+
+
+<button type="submit" class="btn-primary btn" >Yeni Rota Ekle</button>
+</form>
+
+
+
+
+<div>
+
+    @await Component.InvokeAsync("RouteList")
+
+
+</div>

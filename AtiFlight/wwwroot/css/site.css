@@ -1,0 +1,182 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+#carouselExampleIndicators {
+    
+}
+.carousel-inner img{
+
+    max-height:600px;
+    width:auto;
+
+
+
+}
+h2{
+
+    font-size:30px!important;
+
+
+}
+.GuzergahSecim {
+    background-color: white;
+   
+    
+    min-width:100%;
+    
+    min-height: 250px;
+    height:300px;x
+    border-radius: 25px;
+    box-shadow: 2px 1px 12px rgba(0, 0, 0, 0.6);
+ 
+}
+.GuzergahSecim div{
+  border-radius:15px;
+
+
+
+
+}
+.background-image {
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQqm8GqyJCTzmyp2_40d1m9vlTgi2H75ta9w&usqp=CAU);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    background-attachment: fixed;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.pageContent{
+    
+    
+    background-color:white;
+    padding:20px;
+    min-height:500px;
+    max-width:70%;
+    border-radius:10px;
+    
+    box-shadow:0 0 10px rgba(0,0,0,0.4);
+    min-width:50%;
+    
+    
+}
+.justify-content-space-between{
+
+    justify-content:space-between;
+
+
+
+}
+.spacer {
+    flex-grow: 1;
+}
+    .vertical-grid {
+        display: grid;
+        grid-template-columns: 1fr; /* Yalnýzca bir sütun */
+        grid-template-rows: 1fr 2fr; /* Otomatik satýr yüksekliði */
+        grid-row-gap: 10px; /* Satýrlar arasýndaki boþluk */
+    }
+.GuzergahHeader button{
+    border:none;
+    height:100%;
+    width:100%;
+}
+.grid-item {
+    background-color: #f0f0f0;
+    height:100%;
+    text-align: center;
+}
+body {
+    font-family: sans-serif;
+}
+
+.container {
+  
+    margin: 0 auto;
+}
+
+.options {
+
+    margin-top: 20px;
+}
+.ActiveOption {
+    background-color: #40c5ba;
+
+}
+#option1{
+    border-top-left-radius:15px;
+
+
+
+}
+#option2 {
+    border-top-right-radius: 15px;
+}
+.simpleButton{
+
+    background-color:white;
+    margin-left:5px;
+    border:solid 1px gray;
+    border-radius:5px;
+    justify-content:center;
+    align-content:center;
+    text-align:center;
+
+}
+button {
+
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.7s ease;
+    margin-bottom: 10px;
+}
+
+.active {
+    background-color: #000;
+    color: #fff;
+    
+}
+.NonActiveContent{
+
+    display:none;
+
+
+}
+.ActiveContent{
+
+
+
+}
+.content {
+    margin-top: 20px;
+}
+
+h2 {
+    font-size: 18px;
+}
+.GuzergahBody input, .GuzergahBody select, .GuzergahBody button {
+    height: 70%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+input[type="date"] {
+   
+}
