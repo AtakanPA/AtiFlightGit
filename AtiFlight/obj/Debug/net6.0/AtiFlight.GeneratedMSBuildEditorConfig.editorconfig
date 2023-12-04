@@ -9,67 +9,79 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AtiFlight
 build_property.RootNamespace = AtiFlight
-build_property.ProjectDir = C:\Users\Ataka\source\repos\AtiFlight\AtiFlight\
+build_property.ProjectDir = C:\Users\Ataka\Desktop\AtiFlightGit\AtiFlight\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Ataka\source\repos\AtiFlight\AtiFlight
+build_property.MSBuildProjectDirectory = C:\Users\Ataka\Desktop\AtiFlightGit\AtiFlight
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/Admin/AddRoute.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Admin/AddFlight.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkRmxpZ2h0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Admin/AddPlane.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkUGxhbmUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Admin/AddRoute.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkUm91dGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/Admin/Index.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/Home/Index.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/Home/Privacy.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/LogIn/Index.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/LogIn/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9nSW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/Register/Index.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Register/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/Shared/Components/RouteList/Default.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Shared/Components/AirPlaneList/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcQWlyUGxhbmVMaXN0XERlZmF1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Shared/Components/RouteList/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcUm91dGVMaXN0XERlZmF1bHQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/Shared/Error.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/Shared/_AdminLayout.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/Shared/_LoggedIn.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Shared/_LoggedIn.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dnZWRJbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/_ViewImports.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/_ViewStart.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/source/repos/AtiFlight/AtiFlight/Views/Shared/_Layout.cshtml]
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-wn0vzzxp65

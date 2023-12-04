@@ -1,27 +1,40 @@
 ﻿@model IEnumerable<FlyRoute>
+@{
+
+    var Flights = ViewBag.Flights as List<Flight>;
+
+
+
+
+
+}
+
+
 
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
+            <th>Rota ID</th>
             <th>    Nereden</th>
 
 
             <th>  Nereye</th>
 
         </tr>
-      
+
 
 
 
     </thead>
     <tbody>
-       
 
 
-          
-                @foreach (var item in Model)
+
+
+        @foreach (var item in Model)
         {
-            <tr>
+            <tr data-toggle="collapse" data-target="#collapse@(item.FlyRouteID)">
+                <td>@item.FlyRouteID</td>
                 <td>
                     @item.Start.Name
 
@@ -29,20 +42,51 @@
 
                 <td>
                     @item.End.Name
-                    
+
 
 
                 </td>
+                <td>
+                    <a>Pasif Hale Getir</a>
+                    <a href="/Admin/AddFlight/@item.FlyRouteID">Uçuş Ekle</a>
+
+                </td>
             </tr>
+
+            if (Flights != null)
+            {
+                @foreach (var flight in Flights)
+                { @if (item.FlyRouteID == flight.FlyRouteID)
+                    {
+                        <tr id="collapse@(item.FlyRouteID)" class="collapse" aria-expanded="false">
+                            <td>
+
+
+                                @flight.FlightID;
+
+
+
+
+
+                            </td>
+                        </tr>
+                    }
                 }
-          
-            
-                
-          
 
 
 
-     
+            }
+
+
+        }
+
+
+
+
+
+
+
+
 
 
 

@@ -11554,11 +11554,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ataka\\source\\repos\\AtiFlight\\AtiFlight\\AtiFlight.csproj",
+      "projectUniqueName": "C:\\Users\\Ataka\\Desktop\\AtiFlightGit\\AtiFlight\\AtiFlight.csproj",
       "projectName": "AtiFlight",
-      "projectPath": "C:\\Users\\Ataka\\source\\repos\\AtiFlight\\AtiFlight\\AtiFlight.csproj",
+      "projectPath": "C:\\Users\\Ataka\\Desktop\\AtiFlightGit\\AtiFlight\\AtiFlight.csproj",
       "packagesPath": "C:\\Users\\Ataka\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ataka\\source\\repos\\AtiFlight\\AtiFlight\\obj\\",
+      "outputPath": "C:\\Users\\Ataka\\Desktop\\AtiFlightGit\\AtiFlight\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Ataka\\AppData\\Roaming\\NuGet\\NuGet.Config",

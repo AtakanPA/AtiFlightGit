@@ -1,0 +1,84 @@
+﻿@model IEnumerable<AirPlane>
+@{
+
+
+
+
+
+
+}
+
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Air Plane</th>
+            <th> Uçak ismi</th>
+
+
+            <th> Aktif Uçuş</th>
+
+        </tr>
+
+
+
+
+    </thead>
+    <tbody>
+
+
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.AirPlaneID</td>
+                <td>
+                    @item.AirPlaneName
+
+                </td>
+
+                <td>
+                 
+                        @item.Flight?.FlyRoute?.Start.Name<p>-</p> @item.Flight?.FlyRoute?.End.Name
+                    
+                  
+
+
+
+                </td>
+                <td>
+                    <a>Pasif Hale Getir</a>
+                  
+
+                </td>
+            </tr>
+
+    
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </tbody>
+
+
+
+
+
+
+
+
+</table>

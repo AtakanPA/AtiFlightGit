@@ -30,6 +30,10 @@ namespace AtiFlight.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AirPlaneID"));
 
+                    b.Property<string>("AirPlaneName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int?>("FlightID")
                         .HasColumnType("integer");
 
@@ -84,10 +88,10 @@ namespace AtiFlight.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("FlyRouteID"));
 
-                    b.Property<int>("EndID")
+                    b.Property<int?>("EndID")
                         .HasColumnType("integer");
 
-                    b.Property<int>("StartID")
+                    b.Property<int?>("StartID")
                         .HasColumnType("integer");
 
                     b.HasKey("FlyRouteID");
@@ -129,6 +133,9 @@ namespace AtiFlight.Migrations
 
                     b.Property<bool>("IsFull")
                         .HasColumnType("boolean");
+
+                    b.Property<int>("SeatNumber")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("integer");
@@ -198,15 +205,11 @@ namespace AtiFlight.Migrations
                 {
                     b.HasOne("AtiFlight.Models.Iller", "End")
                         .WithMany()
-                        .HasForeignKey("EndID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EndID");
 
                     b.HasOne("AtiFlight.Models.Iller", "Start")
                         .WithMany()
-                        .HasForeignKey("StartID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StartID");
 
                     b.Navigation("End");
 

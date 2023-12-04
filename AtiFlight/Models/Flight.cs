@@ -12,9 +12,9 @@ namespace AtiFlight.Models
         [ForeignKey("AirPlaneID")]
         public int AirPlaneID { get; set; }
         [ForeignKey("AirPlaneID")]
-        public AirPlane AirPlane { get; set; }
+        public AirPlane? AirPlane { get; set; }
         public int FlyRouteID { get; set; }
-        public FlyRoute FlyRoute { get; set; }
+        public FlyRoute? FlyRoute { get; set; }
         public double Price { get; set; }
 
 

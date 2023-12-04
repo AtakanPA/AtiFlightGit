@@ -1,5 +1,28 @@
 ﻿@model FlyRoute
 
+@if (ViewBag.SameValue != null)
+{
+
+
+    <span style="color: red;">@ViewBag.SameValue</span>
+
+
+}
+@if(ViewBag.Failed!=null)
+{
+    
+
+    <span style="color: red;">@ViewBag.Failed</span>
+
+
+}
+@if(ViewBag.Success!=null)
+{
+
+
+    <span style="color: green;">@ViewBag.Success</span>
+
+}
 
 <form asp-action="AddRoute" method="post">
     <label>Nereden</label>

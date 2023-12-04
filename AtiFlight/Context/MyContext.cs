@@ -15,7 +15,7 @@ namespace AtiFlight.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Seat> Seats { get; set; }
         public DbSet<FlyRoute> FlyRoutes { get; set; }
-        public DbSet<Flight> Flights { get; set; }
+        public DbSet<Flight> Flights{ get; set; }
         public DbSet<AirPlane> AirPlanes { get; set; }
         public DbSet<Iller> Illers { get; set; }
 

@@ -8,13 +8,17 @@ namespace AtiFlight.ViewComponents.FlyRoute
 {
     public class RouteList:ViewComponent
     {
-        FlyRouteManager rm = new FlyRouteManager(new EfFlyRouteRepository());
+       
         public IViewComponentResult Invoke()
         {
             MyContext c = new MyContext();
            
             var values = c.FlyRoutes.Include(fe => fe.Start).Include(fs => fs.End).ToList();
 
+            var Flights = c.Flights.Include(fr => fr.FlyRoute).Include(ap => ap.AirPlane).ToList();
+
+
+            ViewBag.Flights = Flights;
 
 
             return View(values);

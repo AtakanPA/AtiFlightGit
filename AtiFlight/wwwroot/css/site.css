@@ -52,30 +52,7 @@ h2{
 
 
 }
-.background-image {
-    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQqm8GqyJCTzmyp2_40d1m9vlTgi2H75ta9w&usqp=CAU);
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    background-attachment: fixed;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-.pageContent{
-    
-    
-    background-color:white;
-    padding:20px;
-    min-height:500px;
-    max-width:70%;
-    border-radius:10px;
-    
-    box-shadow:0 0 10px rgba(0,0,0,0.4);
-    min-width:50%;
-    
-    
-}
+
 .justify-content-space-between{
 
     justify-content:space-between;
