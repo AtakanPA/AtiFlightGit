@@ -3,6 +3,7 @@ using System;
 using AtiFlight.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AtiFlight.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20231207171551_mig-identity")]
+    partial class migidentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,6 +203,7 @@ namespace AtiFlight.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
@@ -212,7 +216,7 @@ namespace AtiFlight.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("NameSurname")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -224,7 +228,15 @@ namespace AtiFlight.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
@@ -238,6 +250,9 @@ namespace AtiFlight.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)

@@ -1,16 +1,11 @@
-﻿@{
-    var MyLayout = ViewBag.Layout as String;
-    if(MyLayout=="LoggedIn")
+﻿
+@{
+    if (TempData["User"]!=null)
     {
+        var user = TempData["User"];
 
-        Layout = "_LoggedIn";
-
-
-    }
-    else
-    {
-        Layout = "_Layout";
-
+        ViewBag.user = user;
     }
   
-    }
+    Layout = "_Layout";
+}

@@ -27,27 +27,34 @@
 
     </thead>
     <tbody>
-
-
-
-
         @foreach (var item in Model)
         {
-            <tr data-toggle="collapse" data-target="#collapse@(item.FlyRouteID)">
+            <tr class="route-row" data-routeid="@item.FlyRouteID">
                 <td>@item.FlyRouteID</td>
                 <td>
-                    @item.Start.Name
+                    @item.Start?.Name
 
                 </td>
 
                 <td>
-                    @item.End.Name
+                    @item.End?.Name
 
 
 
                 </td>
+
                 <td>
-                    <a>Pasif Hale Getir</a>
+                    @if (item.isActive)
+                    {
+
+                        <a>Pasif hale getir</a>
+
+                    }
+                    else
+                    {
+                        <a>Aktif hale getir</a>
+                    }
+
                     <a href="/Admin/AddFlight/@item.FlyRouteID">Uçuş Ekle</a>
 
                 </td>
@@ -58,41 +65,33 @@
                 @foreach (var flight in Flights)
                 { @if (item.FlyRouteID == flight.FlyRouteID)
                     {
-                        <tr id="collapse@(item.FlyRouteID)" class="collapse" aria-expanded="false">
-                            <td>
+                        <tr class="flight-details-container">
+                            <td colspan="4">
+                                <div class="flight-details row" data-routeid="1">
+                                  
+                                     <div class="col-2">
 
+                                        @flight.Start.ToString("HH:mm")
+                                    </div>
+                                     <div class="col-2">
 
-                                @flight.FlightID;
+                                        @flight.End.ToString("HH:mm")
+                                    </div>
+                                  
+                                     <div class="col-2">
 
-
-
-
-
+                                        <p>Fiyat: @flight.Price TRY</p>
+                                    </div>
+                             
+                                </div>
                             </td>
+                         
                         </tr>
+
                     }
                 }
-
-
-
             }
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </tbody>
 
 
@@ -103,3 +102,27 @@
 
 
 </table>
+
+
+<script>
+    // JavaScript kullanarak tıklama olaylarını dinleme
+    const routeRows = document.querySelectorAll('.route-row');
+
+    routeRows.forEach(row => {
+        row.addEventListener('click', () => {
+            const routeId = row.getAttribute('data-routeid');
+            const flightDetails = document.querySelector(`.flight-details[data-routeid="${routeId}"]`);
+       
+            if (flightDetails.style.display === 'flex') {
+                flightDetails.style.display = 'none';
+            } else {
+                // Tüm detaylar gizlendikten sonra seçilen rotanın detaylarını göster
+                const allFlightDetails = document.querySelectorAll('.flight-details');
+                allFlightDetails.forEach(detail => {
+                    detail.style.display = 'none';
+                });
+                flightDetails.style.display = 'flex';
+            }
+        });
+    });
+</script>

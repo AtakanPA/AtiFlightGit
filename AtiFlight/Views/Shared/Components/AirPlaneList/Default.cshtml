@@ -18,7 +18,8 @@
 
 
             <th> Aktif Uçuş</th>
-
+            <th>Durum</th>
+            <th>İşlemler</th>
         </tr>
 
 
@@ -48,11 +49,49 @@
 
 
                 </td>
-                <td>
-                    <a>Pasif Hale Getir</a>
-                  
+                @if(item.isAvailable)
+                {
 
-                </td>
+                    <td>
+
+                        <p>Aktif</p>
+
+
+                    </td>
+
+                    <td>
+
+
+
+                        <a>Pasif Hale Getir</a>
+
+
+                    </td>
+                }
+                else
+                {
+
+
+                    <td>
+
+                        <p>Pasif</p>
+
+
+                    </td>
+
+                    <td>
+
+
+
+                        <a>Aktif hale getir</a>
+
+
+                    </td>
+
+
+
+                }
+
             </tr>
 
     

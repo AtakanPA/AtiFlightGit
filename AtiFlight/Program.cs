@@ -1,3 +1,5 @@
+using AtiFlight.Context;
+using AtiFlight.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -10,10 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AuthDbContextConnection") ?? throw new InvalidOperationException("Connection string 'AuthDbContextConnection' not found.");
 
 
-
-
-
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddMvc(config =>
 {
@@ -31,6 +29,34 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     x.ExpireTimeSpan=TimeSpan.FromMinutes(30);
     x.SlidingExpiration = true; // Oturumun sürekli uzatýlmasýný saðlar
 });
+builder.Services.ConfigureApplicationCookie(Options =>
+{
+    Options.Cookie.HttpOnly=true; 
+    Options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    Options.AccessDeniedPath = new PathString("/Home/Index");
+    Options.LoginPath = "/LogIn";
+    Options.SlidingExpiration = true;
+
+}
+);
+
+
+builder.Services.AddDbContext<MyContext>();
+builder.Services.AddIdentity<User, AppRole>(options =>
+{
+    // Þifre gereksinimleri (opsiyonel)
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.User.AllowedUserNameCharacters = "abcdefghijklýçüðömnopqrstþuvwxyzABCDEFGHIJKLMNOPQRSÞÇÖÜÝÐTUVWXYZ0123456789-._@+";
+
+
+    // Kullanýcý adý ve email gereksinimleri
+    options.User.RequireUniqueEmail = true;
+}).AddEntityFrameworkStores<MyContext>();
+// Add services to the container.
 
 var app = builder.Build();
 

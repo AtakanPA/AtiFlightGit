@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -39,10 +43,20 @@
                         </li>
                            
                     </ul>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <span>Mevcut Kullanıcı: @UserManager.GetUserAsync(User).Result.UserName</span>
+                        <form asp-controller="LogOut" asp-action="Index" method="post" id="logoutForm">
+                            <button type="submit" class="nav-link btn btn-link">Çıkış Yap</button>
+                        </form>
+                    }
+                    else
+                    {
+                            <a href="@Url.Action("Index", "Register")" class="btn btn-outline-success my-2 my-sm-0" role="button">Üye Ol</a>
 
-                    <a href="@Url.Action("Index", "Register")" class="btn btn-outline-success my-2 my-sm-0" role="button">Üye Ol</a>
-
-                    <a href="@Url.Action("Index", "LogIn")" class="btn btn-outline-success my-2 mx-2 my-sm-0" role="button">Giriş Yap</a>
+                        <a href="@Url.Action("Index", "LogIn")" class="btn btn-outline-success my-2 mx-2 my-sm-0" role="button">Giriş Yap</a>
+                    }
+                
 
 
                 </div>

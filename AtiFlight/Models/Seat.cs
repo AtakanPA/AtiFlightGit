@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AtiFlight.Models
 {
     public class Seat
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SeatID { get; set; }
         public int? UserId { get; set; }
         public User? User { get; set; }

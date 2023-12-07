@@ -9,44 +9,66 @@ namespace AtiFlight.Controllers
 {
     public class RegisterController:Controller
     {
+        private readonly UserManager<User> _userManager;
         UsersManager um=new UsersManager(new EfUserRepository());
+        public RegisterController(UserManager<User> userManager)
+        {
+            _userManager = userManager;
+        }
         [AllowAnonymous]
+        [HttpGet]
         public IActionResult Index()
         {
-
+            if (User.Identity.IsAuthenticated)
+            {
+                // Kullanıcı zaten giriş yapmışsa, istenilen sayfaya yönlendir.
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.TempDataMessage = TempData["Failed"];
             return View();
         }
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Index(User usr)
+        public async Task<IActionResult> Index(UserSignUpViewModel usr)
         {
-            // Set success message
-            var Users = um.GetAll();
-            var Emails=Users.Select(p => p.Email).ToList();
-            foreach (var mail in Emails)
+            if (User.Identity.IsAuthenticated)
             {
-                if (usr.Email == mail)
+                // Kullanıcı zaten giriş yapmışsa, istenilen sayfaya yönlendir.
+                return RedirectToAction("Index", "Home");
+            }
+            if (ModelState.IsValid)
+            {
+                User user = new User()
                 {
 
-                    TempData["Failed"] = "Bu hesap zaten mevcut";
-                   
+                    Email = usr.Email,
+                    PhoneNumber = usr.Phone,
+                    NameSurname = usr.Name,
+                    UserName=usr.Email
+
+                };
+                IdentityResult result=await _userManager.CreateAsync(user,usr.Password);
+                if(result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "Member");
+                    return RedirectToAction("Index", "LogIn");
+
+
+                }
+                else
+                {
+
+                    TempData["Failed"] = string.Join(", ", result.Errors.Select(e => e.Description));
+
 
                     return RedirectToAction("Index");
 
+
+
                 }
 
-
-
-
-
             }
-           
-
-            um.TAdd(usr);
-           TempData["RegisterSucceed"] = "Kayıt Başarılı Lütfen Giriş Yapın";
-            return RedirectToAction("Index","LogIn");
-           
+            return View(usr);
           
         }
 

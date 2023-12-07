@@ -10,15 +10,16 @@ using System.Linq;
 
 namespace AtiFlight.Controllers
 {
-    [AllowAnonymous]
+  
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-      IllerManager Im=new IllerManager(new EfIllerRepository());
-      FlyRouteManager Frm=new FlyRouteManager(new EfFlyRouteRepository());
+        IllerManager Im = new IllerManager(new EfIllerRepository());
+        FlyRouteManager Frm = new FlyRouteManager(new EfFlyRouteRepository());
         MyContext c = new MyContext();
         public IActionResult Index()
         {
-             
+
             return View();
 
 
@@ -29,9 +30,9 @@ namespace AtiFlight.Controllers
         }
         public IActionResult AddRoute()
         {
-            var iller=Im.GetAll();
-          ViewBag.illerStartList = new SelectList(iller, "IlId", "Name");
-          ViewBag.illerEndList = new SelectList(iller, "IlId", "Name");
+            var iller = Im.GetAll();
+            ViewBag.illerStartList = new SelectList(iller, "IlId", "Name");
+            ViewBag.illerEndList = new SelectList(iller, "IlId", "Name");
             if (TempData.ContainsKey("SameValues"))
             {
 
@@ -56,9 +57,9 @@ namespace AtiFlight.Controllers
             {
 
                 ViewBag.Failed = null;
-                    
+
             }
-            if(TempData.ContainsKey("RouteSuccess"))
+            if (TempData.ContainsKey("RouteSuccess"))
             {
 
 
@@ -77,16 +78,16 @@ namespace AtiFlight.Controllers
 
             return View();
         }
-        [HttpPost]  
+        [HttpPost]
         public IActionResult AddRoute(FlyRoute flr)
         {
-           
+
             var iller = Im.GetAll();
             ViewBag.illerStartList = new SelectList(iller, "IlId", "Name");
             ViewBag.illerEndList = new SelectList(iller, "IlId", "Name");
             bool exists = c.FlyRoutes.Any(route =>
          route.StartID == flr.StartID && route.EndID == flr.EndID);
-            if(flr.StartID==flr.EndID)
+            if (flr.StartID == flr.EndID)
             {
 
 
@@ -95,12 +96,12 @@ namespace AtiFlight.Controllers
                 return RedirectToAction("AddRoute");
 
             }
-            if(exists)
+            if (exists)
             {
 
 
                 TempData["RouteExist"] = "Rota zaten var !";
-                return RedirectToAction("AddRoute");   
+                return RedirectToAction("AddRoute");
 
             }
             else
@@ -112,14 +113,14 @@ namespace AtiFlight.Controllers
                 return RedirectToAction("AddingRouteSuccess");
 
             }
-         
-            
 
-           
+
+
+
 
 
         }
-        
+
         public IActionResult AddingRouteSuccess()
         {
 
@@ -139,25 +140,28 @@ namespace AtiFlight.Controllers
         public IActionResult AddPlane(AirPlane airplane)
         {
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-            int addedAirPlaneID = airplane.AirPlaneID;
-            c.AirPlanes.Add(airplane);
+                int addedAirPlaneID = airplane.AirPlaneID;
+                c.AirPlanes.Add(airplane);
                 c.SaveChanges();
-            for(int i=0;i<40;i++)
+                for (int i = 0; i < 40; i++)
+                {
+
+                    Seat newSeat = new Seat { AirPlaneID = airplane.AirPlaneID, IsFull = false, SeatNumber = i };
+                   var a= newSeat.SeatID;
+                    
+                    c.Seats.Add(newSeat);
+
+                }
+                c.SaveChanges();
+
+                return RedirectToAction("AddingPlaneSucces");
+            }
+            else
             {
-
-                Seat newSeat= new Seat { SeatID = (addedAirPlaneID * 100) + i + 1, AirPlaneID=airplane.AirPlaneID,IsFull=false,SeatNumber=i};
-
-
-                c.Seats.Add(newSeat);
-
+                return RedirectToAction("AddPlane");
             }
-            c.SaveChanges();
-
-            return RedirectToAction("AddingPlaneSucces");
-            }
-            else { return RedirectToAction("AddPlane"); }
 
         }
 
@@ -169,17 +173,19 @@ namespace AtiFlight.Controllers
 
 
         }
-        public IActionResult DeleteRoute() { 
-        
-        
-        return View();
+        public IActionResult DeleteRoute()
+        {
+
+
+            return View();
         }
 
-        public IActionResult AddFlight(int id) {
+        public IActionResult AddFlight(int id)
+        {
 
-          
+
             ViewBag.FlyRouteID = id;
-            var airplaneIds = c.AirPlanes.Select(airplane => new SelectListItem
+            var airplaneIds = c.AirPlanes.Where(airplane=>airplane.isAvailable==true).Select(airplane => new SelectListItem
             {
                 Value = airplane.AirPlaneID.ToString(), // Assuming Id is int, convert it to string
                 Text = airplane.AirPlaneID.ToString()   // Assign appropriate text if necessary
@@ -195,18 +201,18 @@ namespace AtiFlight.Controllers
             {
                 TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById("Turkey Standard Time");
 
-                flight.Start =DateTime.SpecifyKind(flight.Start,DateTimeKind.Utc);
+                flight.Start = DateTime.SpecifyKind(flight.Start, DateTimeKind.Utc);
                 flight.End = DateTime.SpecifyKind(flight.End, DateTimeKind.Utc);
-                var AirPlaneUpdate=c.AirPlanes.FirstOrDefault(c => c.AirPlaneID == flight.AirPlaneID);
+                var AirPlaneUpdate = c.AirPlanes.FirstOrDefault(c => c.AirPlaneID == flight.AirPlaneID);
                 if (AirPlaneUpdate != null)
                 {
-                    AirPlaneUpdate.FlightID= flight.FlightID;
-
+                    AirPlaneUpdate.FlightID = flight.FlightID;
+                    AirPlaneUpdate.isAvailable = false;
 
                 }
                 c.Flights.Add(flight);
                 c.SaveChanges();
-                return RedirectToAction("AddRoute");   
+                return RedirectToAction("AddRoute");
             }
             else
             {
@@ -216,8 +222,8 @@ namespace AtiFlight.Controllers
                 return RedirectToAction("AddFlight");
 
             }
-         
+
         }
-       
+
     }
 }

@@ -9,13 +9,12 @@ namespace AtiFlight.Models
         [Key]
         public int AirPlaneID { get; set; }
         public string AirPlaneName { get; set; }
-        
+        public bool isAvailable { get; set; } = true;
 
         public List<Seat>? Seats {  get; set; }
         public int? FlightID {  get; set; }
         public Flight? Flight { get; set; }
-      
-       
-     
+   
+
     }
 }

@@ -1,9 +1,10 @@
 ﻿using AtiFlight.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
  // Bu öznitelik, Context sınıfının bir DbContext olduğunu belirtir
 namespace AtiFlight.Context
 {
-    public class MyContext:DbContext
+    public class MyContext:IdentityDbContext<User,AppRole,int>
     {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

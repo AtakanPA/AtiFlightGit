@@ -13,11 +13,12 @@ namespace AtiFlight.Models
         
         public int? StartID {  get; set; }
         
-        public Iller Start {  get; set; }
-       
+        public Iller ?Start {  get; set; }
+        public bool isActive { get; set; } = true;
+   
         public int? EndID { get; set; }
       
-        public Iller End { get; set; }
+        public Iller ?End { get; set; }
         public List<Flight>? Flight { set; get; }
     }
 }

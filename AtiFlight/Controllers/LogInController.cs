@@ -3,6 +3,7 @@ using AtiFlight.EntityFramework;
 using AtiFlight.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -10,10 +11,22 @@ namespace AtiFlight.Controllers
 {
     public class LogInController : Controller
     {
-        UsersManager um = new UsersManager(new EfUserRepository());
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
+        public LogInController(SignInManager<User> signInManager, UserManager<User> userManager)
+        {
+            _signInManager = signInManager;
+            _userManager = userManager;
+        }
+
         [AllowAnonymous]
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                // Kullanıcı zaten giriş yapmışsa, istenilen sayfaya yönlendir.
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.RegisterSucceed = TempData["RegisterSucceed"];
             if (TempData.ContainsKey("LoginFailed"))
             {
@@ -29,41 +42,46 @@ namespace AtiFlight.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Index(User usr)
+        public async Task<IActionResult> Index(UserSignInViewModel usr)
         {
-            var User = um.GetAll().FirstOrDefault(x => x.Email == usr.Email && x.Password == usr.Password);
-            bool loginSuccess = false;
-            if (User != null)
+            if (User.Identity.IsAuthenticated)
+            {
+                // Kullanıcı zaten giriş yapmışsa, istenilen sayfaya yönlendir.
+                return RedirectToAction("Index", "Home");
+            }
+            var result = await _signInManager.PasswordSignInAsync(usr.Email, usr.Password, false, false);
+            if (result.Succeeded)
             {
 
-                var claims = new List<Claim>
+                var user = await _userManager.FindByEmailAsync(usr.Email);
+                if (user != null)
                 {
-                    new Claim(ClaimTypes.NameIdentifier, usr.Email),
+                    var roles = await _userManager.GetRolesAsync(user);
+                    if (roles.Contains("Admin"))
+                    {
+                        return RedirectToAction("Index", "Admin");
 
-                    new Claim("CustomClaim", "LoggedIn")
 
-                };
-                var customClaim = claims.FirstOrDefault(c => c.Type == "CustomClaim")?.Value;
 
-                ViewBag.Layout = "LoggedIn";
-               
-                var useridentity=new ClaimsIdentity(claims,"a");
-                ClaimsPrincipal user = new ClaimsPrincipal(useridentity);
-                await HttpContext.SignInAsync(user);
-                loginSuccess = true;
+                    }
+                    else
+                    {
+
+
+                        return RedirectToAction("Index", "Home");
+                    }
+
+
+                }
                 return RedirectToAction("Index", "Home");
 
             }
-
-
-
-            if (!loginSuccess)
+            else
             {
                 TempData["LoginFailed"] = "Yanlış E-mail veya şifre";
                 return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index", "Home"); 
 
 
         }

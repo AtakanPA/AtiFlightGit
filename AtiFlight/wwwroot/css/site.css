@@ -157,3 +157,6 @@ h2 {
 input[type="date"] {
    
 }
+.flight-details {
+    display: none;
+}

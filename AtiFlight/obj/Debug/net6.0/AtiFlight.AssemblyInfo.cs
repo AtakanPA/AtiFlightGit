@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AtiFlight")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d982f5ffdbed7cbe346a9079b2b1fd4ea152599")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9df7d1e06c1a47cb6d222dc4c036d2cf1ea6152d")]
 [assembly: System.Reflection.AssemblyProductAttribute("AtiFlight")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AtiFlight")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

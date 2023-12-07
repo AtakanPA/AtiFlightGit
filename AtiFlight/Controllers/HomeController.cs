@@ -17,6 +17,7 @@ namespace AtiFlight.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+
             return View();
         }           
        
