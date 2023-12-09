@@ -41,10 +41,12 @@
                 </td>
 
                 <td>
-                 
-                        @item.Flight?.FlyRoute?.Start.Name<p>-</p> @item.Flight?.FlyRoute?.End.Name
-                    
-                  
+
+                    @if (item.Flight?.FlyRoute?.End != null && item.Flight?.FlyRoute?.Start!=null)
+                    {
+                        <p>@item.Flight.FlyRoute.Start.Name-@item.Flight.FlyRoute.End.Name</p>
+                    }
+               
 
 
 

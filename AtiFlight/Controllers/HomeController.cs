@@ -1,6 +1,9 @@
-﻿using AtiFlight.Models;
+﻿using AtiFlight.Context;
+using AtiFlight.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 
@@ -17,10 +20,29 @@ namespace AtiFlight.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            MyContext c=new MyContext();
+
+            var nereye = c.FlyRoutes.Include(fr => fr.End).ToList();
+            var nereden=c.FlyRoutes.Include(ft => ft.Start).ToList();
+            SelectList nereyeSelectList = new SelectList(nereye, "FlyRouteID", "End.Name");
+            SelectList neredenSelectList = new SelectList(nereden, "FlyRouteID", "Start.Name");
+
+            ViewBag.NereyeSelectList = nereyeSelectList;
+            ViewBag.NeredenSelectList = neredenSelectList;
 
             return View();
-        }           
-       
+        }
+        [HttpPost]
+       public IActionResult Index(FlyRoute flr)
+        {
+
+
+
+
+
+
+            return RedirectToAction("Index");
+        }
         
         public IActionResult Privacy()
         {

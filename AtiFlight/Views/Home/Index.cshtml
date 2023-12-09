@@ -1,65 +1,35 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model AtiFlight.Models.FlyRoute
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="">
+<h1>Index</h1>
 
-
-    
-    <div class="GuzergahSecim p-0 container vertical-grid ">
-        <div class="GuzergahHeader grid-item">
-            <div class="options h-100 row m-0 border-1 border-success p-0">
-                <div  class="col-6   m-0 p-0">
-                    <button id="option1" class=" ActiveOption  m-0 h-100 w-100"> Bilet Ara</button>
+<h4>FlyRoute</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StartID" class="control-label"></label>
+                <select asp-for="StartID" class ="form-control" asp-items="ViewBag.NeredenSelectList"></select>
             </div>
-            <div  class="col-6  m-0 p-0 ">
-                    <button id="option2" class="  m-0 h-100 w-100"> Check In Yap</button>
+        
+            <div class="form-group">
+                <label asp-for="EndID" class="control-label"></label>
+                <select asp-for="EndID" class ="form-control" asp-items="ViewBag.NereyeSelectList"></select>
             </div>
-        </div>
-        </div>
-        <div class="GuzergahBody container m-0 p-0 grid-item ">
-        <div class="content h-100">
-            <div id="content1" class="ActiveContent h-100">
-
-                    <div class="row m-0 h-50 input-sizing">
-                    <div class=" col-3 border-1 border-dark">
-
-
-                        <select class="form-select" name="Gidis" id="Gidis">
-                            <option selected>Nereden</option>   
-                            <option value="01">Adana</option>
-                                <option value="48">Mugla</option>
-                                <option value="34">İstanbul</option>
-                                <option value="35">Ankara</option>
-                            </select>
-
-
-                    
-                    </div>
-                    <div class=" col-3 border-1 border-dark ">    
-                        <select class="form-select" name="Gidis" id="Gidis">
-                            <option selected>Nereden</option>   
-                            <option value="01">Adana</option>
-                                <option value="48">Mugla</option>
-                                <option value="34">İstanbul</option>
-                                <option value="35">Ankara</option>
-                            </select></div>
-                    <div class=" col-2 border-1 border-dark  ">  <input type="date" id="birthdate" name="birthdate"></div>
-                  
-                    <div class=" col-2 border-1 border-dark  ">  <button class="btn simpleButton"> Yolcu</button></div>
-                    <div class=" col-2 border-1 border-dark ">  <button class="btn btn-success text-black simpleButton"> Bilet Ara</button></div>
-
-                </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-            <h2 id="content2" class="NonActiveContent">Seçenek 2 İçeriği</h2>
-        </div>
-        </div>
-     
-
-
-
+        </form>
     </div>
-    
-   
-
 </div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

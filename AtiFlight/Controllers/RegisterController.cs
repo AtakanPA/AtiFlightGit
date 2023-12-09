@@ -11,8 +11,10 @@ namespace AtiFlight.Controllers
     {
         private readonly UserManager<User> _userManager;
         UsersManager um=new UsersManager(new EfUserRepository());
-        public RegisterController(UserManager<User> userManager)
+        private readonly RoleManager<AppRole> _roleManager;
+        public RegisterController(UserManager<User> userManager, RoleManager<AppRole> roleManager)
         {
+            _roleManager = roleManager;
             _userManager = userManager;
         }
         [AllowAnonymous]
@@ -48,7 +50,12 @@ namespace AtiFlight.Controllers
 
                 };
                 IdentityResult result=await _userManager.CreateAsync(user,usr.Password);
-                if(result.Succeeded)
+                if (!await _roleManager.RoleExistsAsync("Member"))
+                {
+                    var newRole = new AppRole("Member");
+                    await _roleManager.CreateAsync(newRole);
+                }
+                if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, "Member");
                     return RedirectToAction("Index", "LogIn");
