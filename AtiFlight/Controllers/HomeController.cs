@@ -1,6 +1,10 @@
-﻿using AtiFlight.Context;
+﻿using AtiFlight.BusinessLayer.Concrete;
+using AtiFlight.Context;
+using AtiFlight.EntityFramework;
 using AtiFlight.Models;
+using MessagePack.Internal;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,41 +13,30 @@ using System.Diagnostics;
 
 namespace AtiFlight.Controllers
 {
+    
+    [AllowAnonymous]
     public class HomeController : Controller
     {
+        IllerManager Im = new IllerManager(new EfIllerRepository());
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
-        [AllowAnonymous]
+       
         public IActionResult Index()
         {
-            MyContext c=new MyContext();
+            MyContext c = new MyContext();
 
-            var nereye = c.FlyRoutes.Include(fr => fr.End).ToList();
-            var nereden=c.FlyRoutes.Include(ft => ft.Start).ToList();
-            SelectList nereyeSelectList = new SelectList(nereye, "FlyRouteID", "End.Name");
-            SelectList neredenSelectList = new SelectList(nereden, "FlyRouteID", "Start.Name");
+            var iller = Im.GetAll();
+            ViewBag.illerStartList = new SelectList(iller, "IlId", "Name");
+            ViewBag.illerEndList = new SelectList(iller, "IlId", "Name");
 
-            ViewBag.NereyeSelectList = nereyeSelectList;
-            ViewBag.NeredenSelectList = neredenSelectList;
-
+          
             return View();
         }
-        [HttpPost]
-       public IActionResult Index(FlyRoute flr)
-        {
-
-
-
-
-
-
-            return RedirectToAction("Index");
-        }
-        
+   
         public IActionResult Privacy()
         {
 

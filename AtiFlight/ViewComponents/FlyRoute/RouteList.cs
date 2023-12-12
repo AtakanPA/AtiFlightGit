@@ -15,10 +15,7 @@ namespace AtiFlight.ViewComponents.FlyRoute
            
             var values = c.FlyRoutes.Include(fe => fe.Start).Include(fs => fs.End).ToList();
 
-            var Flights = c.Flights.Include(fr => fr.FlyRoute).Include(ap => ap.AirPlane).ToList();
-
-
-            ViewBag.Flights = Flights;
+          
 
 
             return View(values);

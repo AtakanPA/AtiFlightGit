@@ -1,0 +1,42 @@
+﻿@model List<Flight>
+@{
+    ViewData["Title"] = "FlightsById";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="w-100">
+
+<table class="w-100 table" border="1">
+    <thead>
+        <tr>
+            <th>Uçuş ID</th>
+            <th>Uçuş Başlangıç Saati</th>
+            <th>Uçuş Bitiş Saati</th>
+            <th>Fiyat</th>
+            <th>Uçak İsmi</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var flight in Model)
+        {
+            <!-- Örnek satırlar -->
+
+            <tr>
+                <td>@flight.FlightID</td>
+                <td>@flight.Start.ToString("HH:mm")</td>
+                <td>@flight.End.ToString("HH:mm")</td>
+                <td>@flight.Price</td>
+                <td>@flight.AirPlane?.AirPlaneName</td>
+                
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+</div>
+
+
+

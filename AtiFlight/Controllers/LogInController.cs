@@ -22,6 +22,7 @@ namespace AtiFlight.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+          
             if (User.Identity.IsAuthenticated)
             {
                 // Kullanıcı zaten giriş yapmışsa, istenilen sayfaya yönlendir.
@@ -44,6 +45,7 @@ namespace AtiFlight.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(UserSignInViewModel usr)
         {
+         
             if (User.Identity.IsAuthenticated)
             {
                 // Kullanıcı zaten giriş yapmışsa, istenilen sayfaya yönlendir.
@@ -55,7 +57,11 @@ namespace AtiFlight.Controllers
 
                 var user = await _userManager.FindByEmailAsync(usr.Email);
                 if (user != null)
+
                 {
+
+                   
+                
                     var roles = await _userManager.GetRolesAsync(user);
                     if (roles.Contains("Admin"))
                     {

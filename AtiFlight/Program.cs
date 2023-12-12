@@ -29,16 +29,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     x.ExpireTimeSpan=TimeSpan.FromMinutes(30);
     x.SlidingExpiration = true; // Oturumun sürekli uzatýlmasýný saðlar
 });
-builder.Services.ConfigureApplicationCookie(Options =>
-{
-    Options.Cookie.HttpOnly=true; 
-    Options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-    Options.AccessDeniedPath = new PathString("/Home/Index");
-    Options.LoginPath = "/LogIn";
-    Options.SlidingExpiration = true;
 
-}
-);
 
 
 builder.Services.AddDbContext<MyContext>();
@@ -51,11 +42,21 @@ builder.Services.AddIdentity<User, AppRole>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = false;
     options.User.AllowedUserNameCharacters = "abcdefghijklýçüðömnopqrstþuvwxyzABCDEFGHIJKLMNOPQRSÞÇÖÜÝÐTUVWXYZ0123456789-._@+";
-
+    
 
     // Kullanýcý adý ve email gereksinimleri
     options.User.RequireUniqueEmail = true;
 }).AddEntityFrameworkStores<MyContext>();
+builder.Services.ConfigureApplicationCookie(Options =>
+{
+    Options.Cookie.HttpOnly = true;
+    Options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    Options.AccessDeniedPath = new PathString("/Home/Index");
+    Options.LoginPath = "/LogIn/Index";
+    Options.SlidingExpiration = true;
+
+}
+);
 // Add services to the container.
 
 var app = builder.Build();

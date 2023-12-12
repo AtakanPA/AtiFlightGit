@@ -1,0 +1,58 @@
+﻿@model AtiFlight.Models.Ticket
+
+@{
+    ViewData["Title"] = "CreateTicket";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Flight MyFlight = null;
+    List<Seat> seats = new List<Seat>();
+    if(ViewBag.Flight!=null&&ViewBag.Seats!=null)
+    {
+        seats = ViewBag.Seats;
+        MyFlight = ViewBag.Flight;
+
+
+    }
+}
+
+<h1>CreateTicket</h1>
+
+<h4>Ticket</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateTicket"  method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FlightID" class="control-label"></label>
+                <input asp-for="FlightID" type="hidden" />
+            </div>
+            <div class="form-group">
+                @foreach (var item in seats)
+                {
+                    if (item.IsFull)
+                    {
+                        <input type="radio" class="btn-check" value="@item.SeatID" name="selectedSeat" id="danger-@item.SeatID" autocomplete="off" disabled>
+                        <label class="btn btn-danger" for="danger-@item.SeatID">@item.SeatNumber</label>
+                        <br>
+                    }
+                    else
+                    {
+                        <input type="radio" class="btn-check" value="@item.SeatID" name="selectedSeat" id="secondary-@item.SeatID-outlined" autocomplete="off">
+                        <label class="btn btn-outline-secondary" for="secondary-@item.SeatID-outlined">@item.SeatNumber</label>
+                        <br>
+                    }
+                }
+            </div>
+            
+          
+            <div class="form-group">
+                <input type="submit" value="Onayla" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

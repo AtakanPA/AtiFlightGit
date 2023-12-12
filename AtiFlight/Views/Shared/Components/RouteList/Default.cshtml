@@ -19,7 +19,7 @@
 
 
             <th>  Nereye</th>
-
+            <th>Durum</th>
         </tr>
 
 
@@ -42,55 +42,35 @@
 
 
                 </td>
-
                 <td>
                     @if (item.isActive)
                     {
 
-                        <a>Pasif hale getir</a>
-
+                        <p>Aktif</p>
                     }
                     else
                     {
-                        <a>Aktif hale getir</a>
+                        <p>Pasif</p>
                     }
+                </td>
+                <td>
+                    @if (item.isActive)
+                    {
 
-                    <a href="/Admin/AddFlight/@item.FlyRouteID">Uçuş Ekle</a>
+                        <a href="/Admin/SetPassive/@item.FlyRouteID">Pasif hale getir</a>
+                        <a href="/Admin/AddFlight/@item.FlyRouteID">Uçuş Ekle</a>
+                    }
+                    else
+                    {
+                        <a href="/Admin/SetActive/@item.FlyRouteID">Aktif hale getir</a>
+                    }
+                    <a href="/Admin/FlightsById/@item.FlyRouteID">Uçuşlar</a>
+                 
 
                 </td>
             </tr>
 
-            if (Flights != null)
-            {
-                @foreach (var flight in Flights)
-                { @if (item.FlyRouteID == flight.FlyRouteID)
-                    {
-                        <tr class="flight-details-container">
-                            <td colspan="4">
-                                <div class="flight-details row" data-routeid="1">
-                                  
-                                     <div class="col-2">
-
-                                        @flight.Start.ToString("HH:mm")
-                                    </div>
-                                     <div class="col-2">
-
-                                        @flight.End.ToString("HH:mm")
-                                    </div>
-                                  
-                                     <div class="col-2">
-
-                                        <p>Fiyat: @flight.Price TRY</p>
-                                    </div>
-                             
-                                </div>
-                            </td>
-                         
-                        </tr>
-
-                    }
-                }
-            }
+           
         }
     </tbody>
 
@@ -104,25 +84,3 @@
 </table>
 
 
-<script>
-    // JavaScript kullanarak tıklama olaylarını dinleme
-    const routeRows = document.querySelectorAll('.route-row');
-
-    routeRows.forEach(row => {
-        row.addEventListener('click', () => {
-            const routeId = row.getAttribute('data-routeid');
-            const flightDetails = document.querySelector(`.flight-details[data-routeid="${routeId}"]`);
-       
-            if (flightDetails.style.display === 'flex') {
-                flightDetails.style.display = 'none';
-            } else {
-                // Tüm detaylar gizlendikten sonra seçilen rotanın detaylarını göster
-                const allFlightDetails = document.querySelectorAll('.flight-details');
-                allFlightDetails.forEach(detail => {
-                    detail.style.display = 'none';
-                });
-                flightDetails.style.display = 'flex';
-            }
-        });
-    });
-</script>

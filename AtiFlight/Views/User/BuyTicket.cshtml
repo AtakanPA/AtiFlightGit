@@ -1,0 +1,78 @@
+﻿@model AtiFlight.Models.FlyRoute
+
+@{
+    ViewData["Title"] = "BuyTicket";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Flight> Flights = new List<Flight>();
+    if(ViewBag.FlightList!=null)
+
+    { 
+        Flights = ViewBag.FlightList; 
+    }
+   
+}
+
+
+@if (ViewBag.FlightNonExist != null)
+{
+
+    <span>@ViewBag.FlightNonExist</span>
+
+
+
+}
+else
+{
+    <div>
+       
+            <h4>@Model.Start.Name - @Model.End.Name</h4>
+
+
+
+        <hr />
+        @if (ViewBag.FlightList == null || ViewBag.FlightList.Count == 0)
+        {
+
+
+
+            <p>Bu rotaya ait uçuş bulunamadı.</p>
+
+
+
+
+
+
+        }
+        @foreach (var flight in Flights)
+        {
+            <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                <form asp-action="CreateTicket" asp-route-id="@flight.FlightID" method="get">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <strong>@Model.Start.Name </strong><br />
+                            @flight.Start.ToString("HH:mm")
+                        </div>
+                        <div>
+                            <strong>@Model.End.Name</strong><br />
+                            @flight.End.ToString("HH:mm")
+                        </div>
+                        <div>
+                            Fiyat: @flight.Price
+                        </div>
+                        <div>
+                            <input type="hidden" name="FlightID" value="@flight.FlightID" />
+                            <button asp-action="CreateTicket" type="submit">Satın Al</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+
+
+
+    </div>
+}
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.FlyRouteID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -121,6 +121,70 @@ namespace AtiFlight.Controllers
 
         }
 
+        public IActionResult SetActive(int id)
+        {
+
+            MyContext c=new MyContext();
+
+            var flyroute=c.FlyRoutes.FirstOrDefault(fr=>fr.FlyRouteID==id);
+            if(flyroute!=null)
+            {
+
+
+                flyroute.isActive = true;
+
+
+            }
+
+            c.SaveChanges();
+
+
+            return RedirectToAction("AddRoute");
+
+        }
+
+        public IActionResult SetPassive(int id)
+        {
+
+            MyContext c = new MyContext();
+
+            var flyroute = c.FlyRoutes.FirstOrDefault(fr => fr.FlyRouteID == id);
+            if (flyroute != null)
+            {
+
+
+                flyroute.isActive = false;
+
+
+            }
+
+            c.SaveChanges();
+
+
+            return RedirectToAction("AddRoute");
+
+
+
+  
+        }
+
+        public IActionResult FlightsById(int id)
+        {
+
+            MyContext c = new MyContext();
+
+            var Flights = c.Flights.Include(fr => fr.FlyRoute).Include(ap => ap.AirPlane).ToList();
+
+
+           
+
+
+
+
+            
+            return View(Flights);
+
+        }
         public IActionResult AddingRouteSuccess()
         {
 

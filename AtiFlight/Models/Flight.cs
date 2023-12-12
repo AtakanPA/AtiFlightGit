@@ -8,6 +8,7 @@ namespace AtiFlight.Models
         [Key]
         public int FlightID { get; set; }
         public DateTime Start {  get; set; }
+        public bool IsActive { get; set; } = true;
         public DateTime End { get; set; }
         [ForeignKey("AirPlaneID")]
         public int AirPlaneID { get; set; }
