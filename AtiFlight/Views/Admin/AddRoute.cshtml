@@ -1,4 +1,8 @@
 ﻿@model FlyRoute
+@{
+    ViewData["Title"] = "AddRoute";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
 
 @if (ViewBag.SameValue != null)
 {
@@ -23,29 +27,26 @@
     <span style="color: green;">@ViewBag.Success</span>
 
 }
+<div class="w-100 justify-content-center d-flex flex-column align-items-center">
+    <form asp-action="AddRoute" class="w-50 custom-card p-4 m-4" method="post">
+    <div class="form-group">
+        <label for="StartID">Nereden</label>
+        <select asp-for="StartID" asp-items="ViewBag.illerStartList" class=" mt-2 form-control">
+            <!-- StartID seçenekleri -->
+        </select>
+    </div>
 
-<form asp-action="AddRoute" method="post">
-    <label>Nereden</label>
-    <select asp-for="StartID" asp-items="ViewBag.illerStartList">
-    
-    </select>
+    <div class="form-group">
+        <label for="EndID">Nereye</label>
+        <select asp-for="EndID" asp-items="ViewBag.illerEndList" class="mt-2 form-control">
+            <!-- EndID seçenekleri -->
+        </select>
+    </div>
 
-    <label>Nereye</label>
-    <select asp-for="EndID" asp-items="ViewBag.illerEndList">
-       
-        
-
-    </select>
-
-
-
-
-
-<button type="submit" class="btn-primary btn" >Yeni Rota Ekle</button>
+    <button type="submit" class="btn btn-success mt-2">Yeni Rota Ekle</button>
 </form>
 
-
-
+</div>
 
 <div>
 

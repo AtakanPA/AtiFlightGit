@@ -1,7 +1,26 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+@inject IHttpContextAccessor HttpContextAccessor
 
+@{
+    var user = await UserManager.GetUserAsync(User);
+    IList<string> roles = new List<string>(); // Burada rolleri List<string> yerine IList<string> olarak tanımlıyoruz.
+
+    if (user != null)
+    {
+        roles = await UserManager.GetRolesAsync(user);
+    }
+}
+@if (SignInManager.IsSignedIn(User) && roles.Contains("Admin"))
+{
+    HttpContextAccessor.HttpContext.Response.Redirect("/Admin");
+}
+else
+{
+    // Diğer durumlar için layout içeriği devam eder
+    // Navbar, sayfa içeriği vb.
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,50 +30,62 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AtiFlight.styles.css" asp-append-version="true" />
+    <!-- Bootstrap CSS -->
+    
 
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom border-dark box-shadow ">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AtiFlight</a>
+        <nav class="navbar navbar-expand-sm p-0 navbar-toggleable-sm navbar-light bg-white border-bottom border-dark box-shadow ">
+            <div class="container-fluid ">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" >
+                    <img src="~/images/ssss.png" alt="AtiFlight Logo" class="brand-logo">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse ustmenu h-auto d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                      
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">BİLET İŞLEMLERİM</a>
+                        <li class="nav-item ">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">KAMPANYALAR</a>
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="BiletSorgula">Bilet Sorgula</a>
                         </li>
                       
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">CANLI DESTEK</a>
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">Kampanyalar</a>
+                        </li>
+                      
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">Canlı Destek</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">DUYURULAR</a>
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">Duyurular</a>
                         </li>
                            
                     </ul>
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <span>Mevcut Kullanıcı: @UserManager.GetUserAsync(User).Result.UserName</span>
+                        <div class="dropdown mx-2">
+                            <button class="btn btn-outline-success ">@UserManager.GetUserAsync(User).Result.UserName</button>
+                            <div class="dropdown-content">
+                                <a class="text-decoration-none" href="#">Hesabım</a>
+                                <a class="text-decoration-none" href="#">Biletlerim</a>
+                            </div>
+                        </div>
+                   
+
                         <form asp-controller="LogOut" asp-action="Index" method="post" id="logoutForm">
-                            <button type="submit" class="nav-link btn btn-link">Çıkış Yap</button>
+                            <button type="submit" class="btn btn-outline-success text-decoration-none">Çıkış Yap</button>
                         </form>
                     }
                     else
                     {
-                            <a href="@Url.Action("Index", "Register")" class="btn btn-outline-success my-2 my-sm-0" role="button">Üye Ol</a>
+                            <a href="@Url.Action("Index", "Register")" class="btn btn-outline-success my-2 my-sm-0 " role="button">Üye Ol</a>
 
-                        <a href="@Url.Action("Index", "LogIn")" class="btn btn-outline-success my-2 mx-2 my-sm-0" role="button">Giriş Yap</a>
+                        <a href="@Url.Action("Index", "LogIn")" class="btn btn-outline-success my-2 mx-2 my-sm-0 ms-1" role="button">Giris Yap</a>
                     }
                 
 
@@ -74,8 +105,10 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - AtiFlight - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container d-flex justify-content-center align-items-center">
+            <p class="m-0"> &copy; 2023 - AtiFlight - </p>
+            <a class="nav-link  py-0 text-decoration-none text-muted" asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a>
+            <a class="nav-link py-0 text-decoration-none text-muted " asp-area="" asp-controller="Home" asp-action="BiletSorgula">Bilet Sorgula</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -83,6 +116,7 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+ 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

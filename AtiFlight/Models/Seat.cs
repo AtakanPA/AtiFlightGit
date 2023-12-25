@@ -8,8 +8,8 @@ namespace AtiFlight.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SeatID { get; set; }
-        public int? UserId { get; set; }
-        public User? User { get; set; }
+        public int? YolcuId { get; set; }
+        public Yolcu? Yolcu { get; set; }
         public int SeatNumber { get; set; } 
         public int AirPlaneID { get; set; }
         public AirPlane? AirPlane { get; set; }

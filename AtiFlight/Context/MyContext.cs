@@ -20,7 +20,7 @@ namespace AtiFlight.Context
         public DbSet<AirPlane> AirPlanes { get; set; }
         public DbSet<Iller> Illers { get; set; }
         public DbSet<Ticket>? Ticket { get; set; }
-
+        public DbSet<Yolcu> Yolcular { get; set; }
 
 
     }

@@ -3,33 +3,41 @@ using Microsoft.AspNetCore.Mvc;
 using AtiFlight.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims; 
+using System.Security.Claims;
 namespace AtiFlight.Controllers
-{       
+{
+    [Authorize(Roles = "Member")]
     public class UserController : Controller
     {
-        
+
         public IActionResult Index()
         {
             return View();
         }
 
         [AllowAnonymous]
-      
-        public IActionResult BuyTicket(FlyRoute flr)
+
+        public IActionResult BuyTicket(FlyRoute flr, DateTime date)
         {
-           
+            if (date.Kind == DateTimeKind.Unspecified)
+            {
+                date = DateTime.SpecifyKind(date, DateTimeKind.Utc);
+            }
             List<Flight> flightList = new List<Flight>();
             using (MyContext c = new MyContext())
             {
-                var exist = c.FlyRoutes.Include(x=>x.End).Include(y=>y.Start).FirstOrDefault(route => route.StartID == flr.StartID && route.EndID == flr.EndID);
+                var exist = c.FlyRoutes.Include(x => x.End).Include(y => y.Start).FirstOrDefault(route => route.StartID == flr.StartID && route.EndID == flr.EndID);
                 if (exist != null)
                 {
-                    
-                    
-                    
 
-                        flightList = c.Flights.Include(fr => fr.AirPlane).Include(fl => fl.FlyRoute).Where(flist => flist.FlyRouteID == exist.FlyRouteID).ToList();
+
+
+
+                    flightList = c.Flights.Include(fr => fr.AirPlane)
+                         .Include(fl => fl.FlyRoute)
+                         .Where(flist => flist.FlyRouteID == exist.FlyRouteID && flist.Start.Date == date.Date && flist.IsActive)
+                         .ToList();
+
                     ViewBag.FlightList = flightList;
                     return View(exist);
                 }
@@ -42,21 +50,22 @@ namespace AtiFlight.Controllers
 
 
                 }
-             
-           
+
+
             }
-            
-           return RedirectToAction("Index","Home");
+
+            return RedirectToAction("Index", "Home");
         }
 
-        [Authorize(Roles = "Member")]
+        
         [HttpGet]
-        public IActionResult CreateTicket(int FlightID)
+        public IActionResult CreateTicket(int FID, int Yolcu)
         {
 
-            MyContext c=new MyContext();
-
-            var exist=c.Flights.Include(ap=>ap.AirPlane).Include(fl=>fl.FlyRoute).FirstOrDefault(fr=>fr.FlightID == FlightID);
+            ViewBag.Yolcu = Yolcu;
+            MyContext c = new MyContext();
+            ViewBag.Yolc=c.Yolcular.FirstOrDefault(yolc=>yolc.YolcuId==Yolcu);
+            var exist = c.Flights.Include(ap => ap.AirPlane).Include(fl => fl.FlyRoute).FirstOrDefault(fr => fr.FlightID == FID);
             if (exist != null)
             {
 
@@ -83,69 +92,81 @@ namespace AtiFlight.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "Member")]
-        public IActionResult CreateTicket(Ticket ticket,int selectedSeat)
+        public IActionResult CreateTicket(Ticket ticket, int selectedSeat,int YolcuId)
         {
           
-            if (ModelState.IsValid)
-            {
-                MyContext c = new MyContext();
-                string pnr;
-                Ticket ifExist = null;
-                do
+
+                if (ModelState.IsValid)
                 {
-                    
+                    MyContext c = new MyContext();
 
-                    pnr = GeneratePNRNumber();
-                  ifExist = c.Ticket.FirstOrDefault(tc => tc.PNR == pnr);
+                    var yolcu = c.Yolcular.FirstOrDefault(yo => yo.YolcuId == YolcuId);
+                    if (yolcu == null)
+                    {
+
+                        return RedirectToAction("Index", "Home");
+
+                    }
+                    string pnr;
+                    Ticket ifExist = null;
+                    do
+                    {
 
 
-                } while (ifExist!=null);
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-           
-                Ticket UserTicket = new Ticket()
+                        pnr = GeneratePNRNumber();
+                        ifExist = c.Ticket.FirstOrDefault(tc => tc.PNR == pnr);
+
+
+                    } while (ifExist != null);
+                  
+
+                    Ticket UserTicket = new Ticket()
+                    {
+                        FlightID = ticket.FlightID,
+                        SeatID = selectedSeat,
+                        YolcuId = yolcu.YolcuId,
+                        PNR = pnr,
+
+
+                    };
+                    c.Ticket.Add(UserTicket);
+                    Seat seat = c.Seats.FirstOrDefault(st => st.SeatID == UserTicket.SeatID);
+                    seat.IsFull = true;
+                    seat.YolcuId = yolcu.YolcuId;
+
+                    c.SaveChanges();
+
+                    var CreatedTicket = c.Ticket.FirstOrDefault(pn => pn.PNR == UserTicket.PNR);
+
+
+                    return RedirectToAction("Details", new { id = CreatedTicket.TicketID });
+
+
+
+                }
+                else
                 {
-                    FlightID = ticket.FlightID,
-                    SeatID = selectedSeat,
-                    UserId =Convert.ToInt32(userId),
-                    PNR = pnr,
-
-
-                };
-                c.Ticket.Add(UserTicket);
-                Seat seat = c.Seats.FirstOrDefault(st => st.SeatID == UserTicket.SeatID);
-                seat.IsFull = true;
-                 seat.UserId =Convert.ToInt32(userId);
-
-                c.SaveChanges();
-
-                var CreatedTicket = c.Ticket.FirstOrDefault(pn => pn.PNR == UserTicket.PNR);
-
-
-                return RedirectToAction("Details", new { id = CreatedTicket.TicketID });
-
-
-
-            }
-            else
-            {
 
 
 
 
-                return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
 
 
-            }
+                }
+            
+
          
+
         }
 
 
 
         public IActionResult Details(int id)
         {
-            MyContext c= new MyContext();
+            MyContext c = new MyContext();
 
-            var ticket = c.Ticket.Include(usr => usr.User).Include(flg => flg.Flight).ThenInclude(arp => arp.FlyRoute).Include(st => st.Seat).FirstOrDefault(tid=>tid.TicketID==id);
+            var ticket = c.Ticket.Include(usr => usr.Yolcu).Include(flg => flg.Flight).ThenInclude(arp => arp.FlyRoute).Include(st => st.Seat).FirstOrDefault(tid => tid.TicketID == id);
 
 
 
@@ -153,10 +174,49 @@ namespace AtiFlight.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult Yolcu(int FlightID)
+        {
+
+            ViewBag.FlightID=FlightID;
 
 
 
 
+            return View();
+
+        }
+
+        [HttpPost]
+        public IActionResult Yolcu(Yolcu yolc, int FlightID)
+        {   
+         
+
+
+            MyContext c = new MyContext();
+            Yolcu yolcu = null;
+            var exist = c.Yolcular.FirstOrDefault(ad=>ad.TelNo==yolc.TelNo&&ad.AdSoyad.ToLower()==yolc.AdSoyad.ToLower());
+            if(exist!=null)
+            {
+
+
+
+                yolcu = exist;
+
+            }
+            else
+            {
+                yolcu = yolc;
+                c.Yolcular.Add(yolc);
+             
+
+
+            }
+
+            c.SaveChanges();
+            return RedirectToAction("CreateTicket", new { FID = FlightID, Yolcu = yolcu.YolcuId });
+
+        }
         public string GeneratePNRNumber()
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Kullanılacak karakterler

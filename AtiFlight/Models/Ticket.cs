@@ -8,17 +8,22 @@ namespace AtiFlight.Models
         [Key]
         public int TicketID { get; set; }
 
-      
-       
 
-        public int FlightID { get; set; }
+        
+        [Display(Name ="Uçuş Numarası:")]
+        public int? FlightID { get; set; }
+        [Display(Name = "Uçuş Numarası:")]
         public Flight? Flight { get; set; }
+        [Display(Name ="Koltuk Numarası:")]
         public int? SeatID { get; set; }
-
+        [Display(Name = "Koltuk Numarası:")]
         public Seat? Seat { get; set; }
+        [Display(Name="PNR Numarası:")]
         public string? PNR { get; set; }
-        public int? UserId { get; set; }
-        public User? User { get; set; }
+        [Display(Name ="Yolcu:")]
+        public int? YolcuId { get; set; }
+        [Display(Name = "Yolcu:")]
+        public Yolcu? Yolcu { get; set; }
 
 
 

@@ -3,6 +3,7 @@ using System;
 using AtiFlight.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AtiFlight.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20231214203611_controlactive")]
+    partial class controlactive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +85,7 @@ namespace AtiFlight.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("FlightID"));
 
-                    b.Property<int?>("AirPlaneID")
+                    b.Property<int>("AirPlaneID")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("End")
@@ -170,14 +173,14 @@ namespace AtiFlight.Migrations
                     b.Property<int>("SeatNumber")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("YolcuId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("SeatID");
 
                     b.HasIndex("AirPlaneID");
 
-                    b.HasIndex("YolcuId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Seats");
                 });
@@ -190,7 +193,7 @@ namespace AtiFlight.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TicketID"));
 
-                    b.Property<int?>("FlightID")
+                    b.Property<int>("FlightID")
                         .HasColumnType("integer");
 
                     b.Property<string>("PNR")
@@ -199,7 +202,7 @@ namespace AtiFlight.Migrations
                     b.Property<int?>("SeatID")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("YolcuId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("TicketID");
@@ -208,7 +211,7 @@ namespace AtiFlight.Migrations
 
                     b.HasIndex("SeatID");
 
-                    b.HasIndex("YolcuId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Ticket");
                 });
@@ -282,30 +285,6 @@ namespace AtiFlight.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("AtiFlight.Models.Yolcu", b =>
-                {
-                    b.Property<int>("YolcuId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("YolcuId"));
-
-                    b.Property<string>("AdSoyad")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("TelNo")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("cinsiyet")
-                        .HasColumnType("integer");
-
-                    b.HasKey("YolcuId");
-
-                    b.ToTable("Yolcular");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -415,7 +394,9 @@ namespace AtiFlight.Migrations
                 {
                     b.HasOne("AtiFlight.Models.AirPlane", "AirPlane")
                         .WithOne("Flight")
-                        .HasForeignKey("AtiFlight.Models.Flight", "AirPlaneID");
+                        .HasForeignKey("AtiFlight.Models.Flight", "AirPlaneID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AtiFlight.Models.FlyRoute", "FlyRoute")
                         .WithMany("Flight")
@@ -451,34 +432,36 @@ namespace AtiFlight.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AtiFlight.Models.Yolcu", "Yolcu")
+                    b.HasOne("AtiFlight.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("YolcuId");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("AirPlane");
 
-                    b.Navigation("Yolcu");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AtiFlight.Models.Ticket", b =>
                 {
                     b.HasOne("AtiFlight.Models.Flight", "Flight")
                         .WithMany()
-                        .HasForeignKey("FlightID");
+                        .HasForeignKey("FlightID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AtiFlight.Models.Seat", "Seat")
                         .WithMany()
                         .HasForeignKey("SeatID");
 
-                    b.HasOne("AtiFlight.Models.Yolcu", "Yolcu")
+                    b.HasOne("AtiFlight.Models.User", "User")
                         .WithMany("tickets")
-                        .HasForeignKey("YolcuId");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Flight");
 
                     b.Navigation("Seat");
 
-                    b.Navigation("Yolcu");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -544,7 +527,7 @@ namespace AtiFlight.Migrations
                     b.Navigation("Flight");
                 });
 
-            modelBuilder.Entity("AtiFlight.Models.Yolcu", b =>
+            modelBuilder.Entity("AtiFlight.Models.User", b =>
                 {
                     b.Navigation("tickets");
                 });

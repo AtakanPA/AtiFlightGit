@@ -17,8 +17,28 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Ataka\\Desktop\\AtiFlightGit\\AtiFlight\\wwwroot\\images\\Logo.png",
+      "PackagePath": "staticwebassets\\images\\Logo.png"
+    },
+    {
+      "Id": "C:\\Users\\Ataka\\Desktop\\AtiFlightGit\\AtiFlight\\wwwroot\\images\\arduino-ide_2.2.1_Windows_64bit.exe",
+      "PackagePath": "staticwebassets\\images\\arduino-ide_2.2.1_Windows_64bit.exe"
+    },
+    {
+      "Id": "C:\\Users\\Ataka\\Desktop\\AtiFlightGit\\AtiFlight\\wwwroot\\images\\eclipse-inst-jre-win64.exe",
+      "PackagePath": "staticwebassets\\images\\eclipse-inst-jre-win64.exe"
+    },
+    {
       "Id": "C:\\Users\\Ataka\\Desktop\\AtiFlightGit\\AtiFlight\\wwwroot\\images\\flight.jpg",
       "PackagePath": "staticwebassets\\images\\flight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ataka\\Desktop\\AtiFlightGit\\AtiFlight\\wwwroot\\images\\homeback.jpg",
+      "PackagePath": "staticwebassets\\images\\homeback.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ataka\\Desktop\\AtiFlightGit\\AtiFlight\\wwwroot\\images\\ssss.png",
+      "PackagePath": "staticwebassets\\images\\ssss.png"
     },
     {
       "Id": "C:\\Users\\Ataka\\Desktop\\AtiFlightGit\\AtiFlight\\wwwroot\\js\\site.js",

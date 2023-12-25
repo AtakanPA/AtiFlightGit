@@ -12,10 +12,14 @@ namespace AtiFlight.ViewComponents.FlyRoute
         public IViewComponentResult Invoke()
         {
             MyContext c = new MyContext();
-           
-            var values = c.FlyRoutes.Include(fe => fe.Start).Include(fs => fs.End).ToList();
 
-          
+            var values = c.FlyRoutes
+     .Include(fe => fe.Start)
+     .Include(fs => fs.End)
+     .OrderBy(route => route.FlyRouteID)
+     .ToList();
+
+
 
 
             return View(values);

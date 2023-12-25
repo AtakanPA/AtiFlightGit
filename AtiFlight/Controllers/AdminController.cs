@@ -20,11 +20,11 @@ namespace AtiFlight.Controllers
         public IActionResult Index()
         {
 
-            return View();
+          
 
 
 
-
+            return RedirectToAction("AddRoute");
 
 
         }

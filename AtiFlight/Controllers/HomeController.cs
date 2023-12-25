@@ -28,6 +28,35 @@ namespace AtiFlight.Controllers
         public IActionResult Index()
         {
             MyContext c = new MyContext();
+            var now=DateTime.UtcNow;
+            var today = DateTime.UtcNow.Date;
+            var tomorrow=today.AddDays(1);
+            var pastFlight=c.Flights.Include(ap=>ap.AirPlane).ThenInclude(ae=>ae.Seats).Where(f=>f.Start<now&& f.IsActive).ToList();
+            foreach(var f in pastFlight)
+            {   foreach(var ae in f.AirPlane.Seats)
+                {
+
+                    ae.IsFull = false;
+                    ae.YolcuId = null;
+
+                }
+                var newStartDate = new DateTime(tomorrow.Year, tomorrow.Month, tomorrow.Day, f.Start.Hour, f.Start.Minute, f.Start.Second, DateTimeKind.Utc);
+                var newEndDate = new DateTime(tomorrow.Year, tomorrow.Month, tomorrow.Day, f.End.Hour, f.End.Minute, f.End.Second, DateTimeKind.Utc);
+                Flight add = new Flight()
+                {
+                    Start = newStartDate,
+                    End = newEndDate,
+                    AirPlaneID = f.AirPlaneID,
+                    FlyRouteID = f.FlyRouteID,
+                    Price = f.Price,
+
+
+                };
+        
+                c.Flights.Add(add);
+                f.IsActive = false;
+            }
+            c.SaveChanges();
 
             var iller = Im.GetAll();
             ViewBag.illerStartList = new SelectList(iller, "IlId", "Name");
@@ -35,6 +64,46 @@ namespace AtiFlight.Controllers
 
           
             return View();
+        }
+
+        public IActionResult BiletSorgula()
+        {
+
+
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult BiletSorgula(string PNR)
+        {
+            MyContext c= new MyContext();
+            var exist = c.Ticket
+           .Include(fl => fl.Flight)
+               .ThenInclude(fr => fr.FlyRoute)
+                   .ThenInclude(s => s.Start)
+           .Include(fl => fl.Flight)
+               .ThenInclude(fr => fr.FlyRoute)
+                   .ThenInclude(s => s.End)
+           .Include(ylc => ylc.Yolcu)
+           .Include(st => st.Seat)
+           .FirstOrDefault(pn => pn.PNR.Equals(PNR));
+            if (exist!=null)
+            {
+
+
+
+
+                return View(exist);
+            }
+            else
+            {
+
+
+                ViewBag.Bulunamadi = "Bilet Bulunamadı";
+                return View();
+            }
+
+           
         }
    
         public IActionResult Privacy()

@@ -3,6 +3,7 @@ using System;
 using AtiFlight.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AtiFlight.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20231216192300_correctionasd")]
+    partial class correctionasd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,14 +173,14 @@ namespace AtiFlight.Migrations
                     b.Property<int>("SeatNumber")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("YolcuId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("SeatID");
 
                     b.HasIndex("AirPlaneID");
 
-                    b.HasIndex("YolcuId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Seats");
                 });
@@ -451,13 +454,13 @@ namespace AtiFlight.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AtiFlight.Models.Yolcu", "Yolcu")
+                    b.HasOne("AtiFlight.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("YolcuId");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("AirPlane");
 
-                    b.Navigation("Yolcu");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AtiFlight.Models.Ticket", b =>

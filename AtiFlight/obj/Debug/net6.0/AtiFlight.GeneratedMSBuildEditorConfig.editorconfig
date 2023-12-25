@@ -34,8 +34,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRmxpZ2h0c0J5SWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Admin/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Home/BiletSorgula.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxCaWxldFNvcmd1bGEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Home/Index.cshtml]
@@ -70,10 +70,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Shared/_LoggedIn.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dnZWRJbi5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -88,6 +84,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/User/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/User/Yolcu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxZb2xjdS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Ataka/Desktop/AtiFlightGit/AtiFlight/Views/_ViewImports.cshtml]

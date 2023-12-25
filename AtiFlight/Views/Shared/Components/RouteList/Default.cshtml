@@ -57,20 +57,20 @@
                     @if (item.isActive)
                     {
 
-                        <a href="/Admin/SetPassive/@item.FlyRouteID">Pasif hale getir</a>
-                        <a href="/Admin/AddFlight/@item.FlyRouteID">Uçuş Ekle</a>
+                        <a class="text-decoration-none btn btn-success" href="/Admin/SetPassive/@item.FlyRouteID">Pasif hale getir</a>
+                        <a class="text-decoration-none btn btn-success" href="/Admin/AddFlight/@item.FlyRouteID">Uçuş Ekle</a>
                     }
                     else
                     {
-                        <a href="/Admin/SetActive/@item.FlyRouteID">Aktif hale getir</a>
+                        <a class="text-decoration-none btn btn-success" href="/Admin/SetActive/@item.FlyRouteID">Aktif hale getir</a>
                     }
-                    <a href="/Admin/FlightsById/@item.FlyRouteID">Uçuşlar</a>
-                 
+                    <a class="text-decoration-none btn btn-success" href="/Admin/FlightsById/@item.FlyRouteID">Uçuşlar</a>
+
 
                 </td>
             </tr>
 
-           
+
         }
     </tbody>
 
