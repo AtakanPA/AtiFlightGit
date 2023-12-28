@@ -1,7 +1,7 @@
 ﻿@model List<Flight>
 @{
     ViewData["Title"] = "FlightsById";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml"; 
 }
 
 
@@ -29,8 +29,21 @@
                 <td>@flight.End.ToString("HH:mm")</td>
                 <td>@flight.Price</td>
                 <td>@flight.AirPlane?.AirPlaneName</td>
-                
-            </tr>
+                    @if (flight.IsActive)
+                    {
+
+
+                        <td>Aktif</td>
+
+                    }
+                    else
+                    {
+
+                        <td>Pasif</td>
+
+
+                    }
+                </tr>
         }
     </tbody>
 
